@@ -1,0 +1,3 @@
+pages_homepage:
+    path:     /dashbord
+    defaults: { _controller: PagesBundle:Default:index }

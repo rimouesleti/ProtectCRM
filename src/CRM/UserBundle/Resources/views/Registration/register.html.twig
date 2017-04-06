@@ -1,0 +1,28 @@
+{% extends "::base.html.twig" %}
+
+{% block mainContent %}
+
+    
+        <!-- start: PAGE CONTENT -->
+        <div class="row">
+            <div class="col-md-12">
+                <!-- start: DYNAMIC TABLE PANEL -->
+                <div class="panel panel-white">
+                    <div class="panel-body">
+                        {% if is_granted('ROLE_ADMIN') %}
+                            {% block fos_user_content %}
+                                {% include "FOSUserBundle:Registration:register_content.html.twig" %}
+                            {% endblock fos_user_content %}
+                        {%else%}
+                            <div class="alert alert-danger" role="alert">
+                                <i class="fa fa-exclamation-triangle"></i> {% trans %}You don't have enough privilege{% endtrans %}.
+
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+  
+{% endblock %}

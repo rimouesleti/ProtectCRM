@@ -1,0 +1,9 @@
+<?php
+
+namespace CRM\PagesBundle;
+
+use Symfony\Component\HttpKernel\Bundle\Bundle;
+
+class PagesBundle extends Bundle
+{
+}

@@ -1,0 +1,217 @@
+{# empty Twig template #}
+{% extends "::base.html.twig" %}
+
+
+
+{%block mainContent%}
+
+
+
+    <div class="">
+        <div class="row" style="padding-top: 2%;" >
+            <ol class="breadcrumb" style="background: white">
+                <li><a href="{{ path('entities') }}">{% trans %}Companies{% endtrans %}</a></li>           
+                <li class="active">Detail</li>
+            </ol>
+            <hr> 
+
+        </div>
+
+        <!-- start: PAGE CONTENT -->
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="tabbable">
+
+                    <div class="tab-content">
+                        <div id="panel_overview" class="tab-pane fade in active">
+                            <div class="row">
+                                <div class="col-sm-5 col-md-4">
+                                    <div class="user-left">
+                                        <div class="center">
+                                            <h4>{{entity.name}}</h4>
+
+
+                                            <div class="fileupload fileupload-new" data-provides="fileupload">
+                                                <div class="user-image">
+                                                    <div class="fileupload-new thumbnail">
+                                                        {% if entity.profilePicture %}
+                                                            <img src="{{ asset("uploads/entities/") ~ entity.profilePicture  }} " alt="" >
+                                                        {% else %}
+
+                                                            <img src="{{ asset('bundles/pages/images/Company.png') }} " alt="">
+
+
+                                                        {% endif %}
+                                                    </div>                                          
+
+                                                </div>
+                                            </div>
+
+                                            <hr>
+
+
+                                        </div>
+                                        <table class="table table-condensed table-hover">
+                                            <thead>
+                                                <tr>
+                                                    <th colspan="3">{% trans %}Contact Information{% endtrans %}</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+
+                                                <tr>
+                                                    <td>Email:</td>
+                                                    <td>
+                                                        <a href="">
+                                                            {{entity.email}}
+                                                        </a></td>
+
+                                                </tr>
+                                                <tr>
+                                                    <td>Phone:</td>
+                                                    <td>{{entity.phone}}</td>
+
+                                                </tr>
+                                                <tr>
+                                                    <td>{% trans %}Country{% endtrans %}:</td>
+                                                    <td>
+                                                        {{entity.country}}
+                                                    </td>
+
+                                                </tr>
+                                                <tr>
+                                                    <td>{% trans %}City{% endtrans %}:</td>
+                                                    <td>                                                   
+                                                        {{entity.city}}
+                                                    </td>
+
+                                                </tr>
+                                                <tr>
+                                                    <td>{% trans %}Address{% endtrans %}:</td>
+                                                    <td>                                                   
+                                                        {{entity.address}}
+                                                    </td>
+
+                                                </tr>
+                                                <tr>
+                                                    <td>{% trans %}Zip Code{% endtrans %}:</td>
+                                                    <td>                                                  
+                                                        {{entity.zipCode}}
+                                                    </td>
+
+                                                </tr>
+                                            </tbody>
+                                        </table>
+
+                                        <table class="table table-condensed table-hover">  
+                                            <thead>
+                                                <tr>
+                                                    <th colspan="3">{% trans %}General information{% endtrans %}</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>{% trans %}Creator{% endtrans %}:</td>
+                                                    <td>
+
+                                                        {{entity.user}}</td>
+
+
+
+                                                </tr>
+
+                                                <tr>
+                                                    <td>{% trans %}Status{% endtrans %}:</td>
+                                                    <td>{{entity.type}}</td>
+
+                                                </tr>
+                                                <tr>
+                                                    <td>{% trans %}Speciality{% endtrans %}:</td>
+                                                    <td>{{entity.speciality}}</td>
+
+                                                </tr>
+                                                {% if entity.website %}
+                                                    <tr>
+                                                        <td>{% trans %}Website{% endtrans %}:</td>
+                                                        <td>{{entity.website}}</td>
+
+                                                    </tr>
+                                                {% endif %}
+                                                {% if entity.employeesNumber %}
+                                                    <tr>
+                                                        <td>{% trans %}Employees number{% endtrans %}:</td>
+                                                        <td>{{entity.employeesNumber}}</td>
+
+                                                    </tr>
+                                                {% endif %}
+                                                {% if entity.description %}
+                                                    <tr>
+                                                        <td>Description:</td>
+                                                        <td>{{entity.description | raw}}</td>
+
+                                                    </tr>
+                                                {% endif %}
+
+
+
+
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div class="col-sm-7 col-md-8">
+
+                                    <span class="btn-group pull-right" style="margin-bottom: 2%">
+                                        <button class="btn btn-default dropdown-toggle" data-toggle="dropdown" href="javascript:void(0);"><i class="fa fa-fw fa-wrench"></i> <span class="hidden-xs">{% trans %}More{% endtrans %}</span>                                                           </button>
+                                        <ul class="dropdown-menu pull-right">                                                            
+
+                                            <!-- <li id="Contacts_detailView_moreAction_LBL_ADD_NOTE">
+                                                 <a href=""><i class="fa fa-fw fa-file-o"></i>   Add Document</a></li> -->
+
+
+                                            <li id="Contacts_detailView_moreAction_LBL_ADD_TASK">
+                                                <a href=""><i class="fa fa-fw fa-file-text-o"></i>   Add To Do</a>
+                                            </li> 
+                                            <li id="Contacts_detailView_moreAction_Delete_Contact">
+                                                <a href="{{  path('entity/edit', {'id': entity.id}) }}"><i class="fa fa-fw fa-pencil"></i>   {% trans %}Edit{% endtrans %}</a>
+                                            </li>
+                                            <li id="Contacts_detailView_moreAction_Delete_Contact">
+                                                <a href="{{ path('entities/delete', {'id': entity.id}) }}"><i class="fa fa-fw fa-times"></i>   {% trans %}Delete{% endtrans %}</a>
+                                            </li>
+                                        </ul>
+                                    </span>
+
+
+                                    <div class="panel panel-white space20">
+                                        <div class="panel-heading" style="font-weight: bold;">                                           
+                                            {% trans %}Activities{% endtrans %}
+
+                                        </div>
+                                        <div class="panel-body panel-scroll height-300">
+
+                                            {% trans %}No recent activities{% endtrans %}
+
+
+
+
+
+
+
+                                        </div>
+                                    </div>
+
+
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- end: PAGE CONTENT-->
+    </div>
+
+
+
+{% endblock %}

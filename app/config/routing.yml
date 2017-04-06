@@ -1,0 +1,88 @@
+user:
+    resource: "@UserBundle/Resources/config/routing.yml"
+    prefix:   /
+
+pages:
+    resource: "@PagesBundle/Resources/config/routing.yml"
+    prefix:   /
+
+
+fos_user:
+    resource: "@FOSUserBundle/Resources/config/routing/all.xml"
+    
+contributors:
+   pattern: /contributors/show
+   defaults: {_controller:UserBundle:Contributors:showcontributors}
+
+contributor/delete:
+   pattern: /contributor/delete/{id}
+   defaults: {_controller:UserBundle:Contributors:deletecontributors}
+   
+entities/new:
+   pattern: /entities/new
+   defaults: {_controller:PagesBundle:Entity:new}
+
+entities:
+   pattern: /entities/show
+   defaults: {_controller:PagesBundle:Entity:showAll}
+   
+entity:
+   pattern: /entity/{id}
+   defaults: {_controller:PagesBundle:Entity:show}
+   
+entity/edit:
+   pattern: /entity/edit/{id}
+   defaults: {_controller:PagesBundle:Entity:edit}
+   
+entities/delete:
+   pattern: /entities/delete/{id}
+   defaults: {_controller:PagesBundle:Entity:delete}
+   
+contact/new:
+   pattern: /contact/new
+   defaults: {_controller:PagesBundle:Contact:new}
+   
+contacts:
+   pattern: /contacts/show
+   defaults: {_controller:PagesBundle:Contact:showAll}
+
+contact/delete:
+   pattern: /contact/delete/{id}
+   defaults: {_controller:PagesBundle:Contact:delete}
+
+contact/edit:
+   pattern: /contact/edit/{id}
+   defaults: {_controller:PagesBundle:Contact:edit}
+   
+todo/new:
+   pattern: /todo/new/{entity_id}
+   defaults: {_controller:PagesBundle:Todo:new, entity_id:null}
+
+todos:
+   pattern: /todos/show
+   defaults: {_controller:PagesBundle:Todo:showAll}
+   
+todo/delete:
+   pattern: /todo/delete/{id}
+   defaults: {_controller:PagesBundle:Todo:delete}
+
+todo/edit:
+   pattern: /todo/edit/{id}
+   defaults: {_controller:PagesBundle:Todo:edit}
+
+todo:
+   pattern: /todo/{id}
+   defaults: {_controller:PagesBundle:Todo:show}
+
+
+opportunity/new:
+   pattern: /opportunity/new/{entity_id}
+   defaults: {_controller:PagesBundle:Opportunity:new, entity_id:null}
+   
+opportunities:
+   pattern: /opportunities/show
+   defaults: {_controller:PagesBundle:Opportunity:showAll}
+
+opportunity/delete:
+   pattern: /opportunity/delete/{id}
+   defaults: {_controller:PagesBundle:Opportunity:delete}

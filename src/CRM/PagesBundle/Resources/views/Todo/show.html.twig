@@ -1,0 +1,117 @@
+{% extends "::base.html.twig" %}
+
+{% block mainContent %}
+    {% stylesheets  filter='cssrewrite'  
+ 'bundles/pages/css/app.css'
+
+    %}
+    <link rel="stylesheet" href="{{ asset_url }}" />
+    {% endstylesheets %}
+ <div class="row" style="padding-top: 2%;" >
+            <ol class="breadcrumb" style="background: white">
+                <li><a href="{{ path('todos') }}">{% trans %}Tasks{% endtrans %}</a></li>           
+                <li class="active">Detail</li>
+            </ol>
+            <hr> 
+
+        </div>
+    <div class="panel panel-white">
+        <div class="panel-body">
+            <div id="readEvent" style="display: block;">
+                <div class="noteWrap col-md-8 col-md-offset-2">
+                    <div class="panel panel-note">
+
+                        <div class="panel-heading">
+                            <div class="col-md-12">
+                                <div class="col-md-8">
+                                    <h2 class="event-title">{{todo.subject}}</h2>
+                                </div>
+                                <div class="col-md-4">
+
+                                    <div class="btn-group options-toggle pull-right">
+                                        <button class="btn dropdown-toggle btn-transparent-grey" data-toggle="dropdown">
+                                            <i class="fa fa-cog"></i>
+                                            <span class="caret"></span>
+                                        </button>
+                                        <ul role="menu" class="dropdown-menu dropdown-light pull-right">
+                                            <li>
+                                                <a href="{{ path('todo/edit', {'id': todo.id}) }}" class="edit-event">
+                                                    <i class="fa fa-pencil"></i> {% trans %}Edit{% endtrans %}
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="{{ path('todo/delete', {'id': todo.id}) }}" class="delete-event">
+                                                    <i class="fa fa-times"></i> {% trans %}Remove{% endtrans %}
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="panel-body" style="background: transparent;">
+
+                            <div class="note-content">   
+                                
+
+                                <div class="col-md-6">
+
+
+
+
+                                    {% if todo.status =="planned" %}                            
+                                        <span class="label label-sm label-info">{% trans %}Planned{% endtrans %}</span>
+                                    {% elseif  todo.status =="cancelled" %}
+                                        <span class="label label-sm label-danger">{% trans %}Cancelled{% endtrans %}</span>
+                                    {% elseif  todo.status =="done" %}
+                                        <span class="label label-sm label-success">{% trans %}Done{% endtrans %}</span>
+                                    {% else %}
+                                        <span class="label label-sm label-warning">{% trans %}Held{% endtrans %}</span>
+                                    {% endif %} 
+                                    
+                                    
+                                </div>
+                                <div class="col-md-12">
+
+                                    <div class="event-start"><p>{% trans %}Start{% endtrans %}:</p>
+                                        <div class="event-day"><h2>{{todo.startDate|date("d")}}</h2></div>
+                                        <div class="event-date"><h3>{{todo.startDate|date("m-Y")}}</h3></div>
+                                        <div class="event-time"><h3><i class="fa fa-clock-o"></i> {{todo.startDate|date("H:i")}}</h3></div>
+                                    </div>
+                                    <div class="event-end" style="display: block;"><p>{% trans %}End{% endtrans %}:</p>
+                                        <div class="event-day"><h2>{{todo.dueDate|date("d")}}</h2></div>
+                                        <div class="event-date"><h3>{{todo.dueDate|date("m-Y")}}</h3></div>
+                                        <div class="event-time"><h3><i class="fa fa-clock-o"></i> {{todo.dueDate|date("H:i")}}</h3></div>
+
+                                    </div>
+                                </div>
+
+
+                                <div class="col-md-12">
+                                    <hr>
+                                     <span class="author-note">{% trans %}Assigned To{% endtrans %}: 
+                                        {% for user in todo.user %}
+                                            <a href="#">{{ user.firstname }} {{ user.lastname }}</a>
+                                            {% if not loop.last %}, {% endif %}
+                                        {% endfor %}
+                                    </span>
+                                </div>
+
+                               
+                                <div class="col-md-12" style="margin-bottom: 5%;">
+                                    <hr>
+                                    <div>{{todo.description|raw}}</div>
+                                </div>
+                            </div>
+                        </div>    
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+{%endblock%}

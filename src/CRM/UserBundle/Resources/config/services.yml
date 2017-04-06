@@ -1,0 +1,9 @@
+services:
+#    user.example:
+#        class: CRM\UserBundle\Example
+#        arguments: [@service_id, "plain_value", %parameter%]
+    crm_user_registration.form.type:
+        class: CRM\UserBundle\Form\UserType
+        arguments: [%fos_user.model.user.class%]
+        tags:
+            - { name: form.type, alias: crm_userbundle_user}

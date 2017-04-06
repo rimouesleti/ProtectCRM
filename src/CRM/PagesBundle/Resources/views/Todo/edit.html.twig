@@ -1,0 +1,143 @@
+{% extends "::base.html.twig" %}
+
+{% block mainContent %}
+    {% stylesheets  filter='cssrewrite'  
+ 'bundles/pages/js/select2-3.5.1/select2.css' 
+'bundles/pages/js/bootstrap-select/dist/css/bootstrap-select.css'
+    'bundles/pages/js/bootstrap-datetimepicker/css/datetimepicker.css'
+ 'bundles/pages/css/summernote/dist/summernote.css'
+ 'bundles/pages/css/app.css'
+
+    %}
+    <link rel="stylesheet" href="{{ asset_url }}" />
+    {% endstylesheets %}
+
+    <div class="">
+         <div class="row" style="padding-top: 2%;" >
+            <ol class="breadcrumb" style="background: white">
+                <li><a href="{{ path('todos') }}">{% trans %}Tasks{% endtrans %}</a></li>           
+                <li class="active">{% trans %}Edit{% endtrans %}</li>
+            </ol>
+            <hr> 
+
+        </div>
+        <div class="panel panel-white">
+           
+            <div class="panel-body">
+                <div class="noteWrap col-md-8 col-md-offset-2">
+
+                    <form action="{{ path('todo/edit',{'id':todo.id}) }}" method="post" {{ form_enctype(form) }} >
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">                               
+                                    {{ form_widget(form.subject , { 'attr': {'placeholder': 'Subject ...'|trans} }) }}
+                                </div>
+                            </div>
+                            <div class="no-all-day-range">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <div class="form-group">
+                                            <label for="startDate" style="font-weight: bold;"><i class="fa fa-fw fa-clock-o"></i> {% trans %}Start Date{% endtrans %}</label><span class="symbol required"></span>
+                                            {{ form_widget(form.startDate) }}
+
+
+                                        </div>
+                                    </div>
+                                </div>  
+                            </div>
+                            <div class="no-all-day-range">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <div class="form-group">
+                                            <label for="endDate" style="font-weight: bold;"><i class="fa fa-fw fa-clock-o"></i> {% trans %}End Date{% endtrans %}</label><span class="symbol required"></span>
+                                            {{ form_widget(form.dueDate) }}
+
+                                        </div>       
+                                    </div>
+                                </div>
+                            </div>  
+
+
+
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="status" style="font-weight: bold;">{% trans %}Status{% endtrans %}<span class="symbol required"></span></label>
+                                        {{ form_widget(form.status, { 'attr': {'class': 'selectpicker form-control event-categories '} })}}
+                                </div>
+                            </div>
+
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="entity" style="font-weight: bold;">{% trans %}Company{% endtrans %}<span class="symbol required"></span></label>
+                                        {{ form_widget(form.entity, { 'attr': {'style': 'width:100% '} }) }}
+                                </div> 
+                                <a href="{{path('entities/new')}}" type="button" class="btn btn-default btn-xs pull-right">
+                                    <i class="fa fa-plus"></i> {% trans %}Add new Company{% endtrans %}
+                                </a>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="user" style="font-weight: bold;">{% trans %}Assigned To{% endtrans %}</label>
+                                    {{ form_widget(form.user, { 'attr': {'style': 'width:100% '} }) }}
+                                </div> 
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="description" style="font-weight: bold;">{% trans %}Description{% endtrans %}</label>
+                                    {{ form_widget(form.description, { 'attr': {'class': 'summernote'} }) }}
+                                </div>
+                            </div>
+
+                            {{ form_rest(form) }}
+                            <button class="btn btn-success col-md-4 col-xs-12" type="submit" style="margin-top: 5%;float: right;">
+                                <i class="fa fa-floppy-o"></i> {% trans %}Submit{% endtrans %}
+                            </button>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    {% javascripts 
+  'bundles/pages/js/jquery-1.11.3.min.js' 
+
+ 'bundles/pages/css/bootstrap/js/bootstrap.min.js' 
+ 'bundles/pages/js/bootstrap-datetimepicker/js/bootstrap-datetimepicker.js'
+ 'bundles/pages/css/summernote/dist/summernote.min.js' 
+  'bundles/pages/js/bootstrap-select/js/bootstrap-select.js'
+'bundles/pages/js/select2-3.5.1/select2.min.js'
+ 'bundles/pages/js/newEvent.js' 
+    %}
+    <script type="text/javascript" src="{{ asset_url }}"></script>
+
+    {% endjavascripts %}
+
+   
+    <script>
+
+        $('#crm_pagesbundle_todos_user').select2();
+        $("#crm_pagesbundle_todos_status option").each(function (index, value) {
+            var option = $(this);
+            if (option.val() === "planned") {
+                option.attr('data-content', "<span class='label label-info'>{% trans %}Planned{% endtrans %}</span>");
+            }
+            else if (option.val() === "cancelled") {
+                option.attr('data-content', "<span class='label label-danger'>{% trans %}Cancelled{% endtrans %}</span>");
+            }
+            else if (option.val() === "done") {
+                option.attr('data-content', "<span class='label label-success'>{% trans %}Done{% endtrans %}</span>");
+            }
+            else if (option.val() === "held") {
+                option.attr('data-content', "<span class='label label-warning'>{% trans %}Held{% endtrans %}</span>");
+            }
+
+        });
+    
+
+
+    </script>
+
+{% endblock %}
